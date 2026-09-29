@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Harian dan Angka Kecukupan Gizi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: {
+                            50: '#FDFBF7',
+                            100: '#F8F4EE',
+                            200: '#F5EBE6',
+                            300: '#E8DED6',
+                            400: '#E3D5CA',
+                            500: '#D5BDAF',
+                            600: '#B8A394',
+                            700: '#968172',
+                            800: '#756356',
+                            900: '#54473D',
+                            950: '#3D332B'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-10px) rotate(2deg)' },
+                        },
+                        pulseSlow: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '0.85' },
+                            '50%': { transform: 'scale(1.06)', opacity: '1' },
+                        }
+                    },
+                    animation: {
+                        float: 'float 4.5s ease-in-out infinite',
+                        'float-delayed': 'float 5.5s ease-in-out 2s infinite',
+                        'pulse-slow': 'pulseSlow 3.5s ease-in-out infinite'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF7;
+            color: #54473D;
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8F4EE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D5BDAF;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B8A394;
+        }
+    </style>
+</head>
+<body class="bg-[#FDFBF7] text-[#54473D] min-h-screen flex flex-col selection:bg-[#E3D5CA] selection:text-[#3D332B] relative">
+
+    <!-- Decorative Floating Ornaments -->
+    <div class="absolute top-12 left-8 text-[#B8A394] text-2xl animate-float pointer-events-none select-none opacity-80">⭐</div>
+    <div class="absolute top-36 right-16 text-[#D5BDAF] text-3xl animate-float-delayed pointer-events-none select-none opacity-70">☁️</div>
+    <div class="absolute top-96 left-16 text-[#968172] text-xl animate-float pointer-events-none select-none opacity-70">🍲</div>
+    <div class="absolute top-72 right-1/4 text-[#B8A394] text-xl animate-pulse-slow pointer-events-none select-none opacity-80">⭐</div>
+    <div class="absolute bottom-44 left-12 text-[#D5BDAF] text-3xl animate-float-delayed pointer-events-none select-none opacity-70">🥗</div>
+    <div class="absolute bottom-24 right-20 text-[#B8A394] text-2xl animate-float pointer-events-none select-none opacity-80">🌟</div>
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-[#FDFBF7]/90 backdrop-blur-md border-b border-[#F5EBE6] shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-full bg-[#F8F4EE] flex items-center justify-center shadow-sm border border-[#E8DED6] overflow-hidden p-1 flex-shrink-0">
+                    <svg viewBox="0 0 200 200" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="94" fill="#C5A059" stroke="#E6D597" stroke-width="6"/>
+                        <circle cx="100" cy="100" r="84" fill="#88C4E8" stroke="#102A45" stroke-width="2"/>
+                        <circle cx="100" cy="100" r="70" fill="#0E2338"/>
+                        <!-- Garuda silhouette & gold details -->
+                        <path d="M100 55 L115 80 L135 75 L120 95 L145 105 L110 115 L100 135 L90 115 L55 105 L80 95 L65 75 L85 80 Z" fill="#F5C542"/>
+                        <rect x="92" y="90" width="16" height="20" fill="#B22222" rx="2"/>
+                        <!-- Leaves at bottom -->
+                        <path d="M70 155 Q85 130 100 150 Q115 130 130 155 Q100 165 70 155 Z" fill="#76C753"/>
+                        <!-- Text arc simulation -->
+                        <path id="curve" d="M 30,100 A 70,70 0 1,1 170,100" fill="none"/>
+                        <text font-size="13" font-weight="bold" fill="#0E2338" letter-spacing="1">
+                            <textPath href="#curve" startOffset="50%" text-anchor="middle">BADAN GIZI NASIONAL</textPath>
+                        </text>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-sm sm:text-lg font-extrabold tracking-tight text-[#54473D] block leading-tight">Badan Gizi Nasional</span>
+                    <span class="text-xs text-[#756356] font-semibold block">SPPG Lorok Pakjo</span>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center space-x-2 text-xs text-[#756356] bg-[#F5EBE6]/80 px-4 py-2 rounded-2xl border border-[#E8DED6] shadow-inner">
+                <span class="animate-bounce">🌿</span>
+                <span class="font-semibold">Hangat, Lembut & Bergizi</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative overflow-hidden py-12 lg:py-16 bg-gradient-to-b from-[#F8F4EE] via-[#FDFBF7] to-[#FDFBF7] border-b border-[#F5EBE6]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-3xl">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-[#F5EBE6] border border-[#E8DED6] text-[#756356] text-xs font-bold tracking-wide mb-4 shadow-sm">
+                <span class="text-[#968172] animate-spin">🌟</span>
+                <span>Standar Nutrisi & Gizi Seimbang SPPG Lorok Pakjo</span>
+                <span class="text-[#B8A394]">🎈</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#3D332B] leading-tight mb-4">
+                Menu Harian dan <span class="text-[#968172] underline decoration-[#E3D5CA] decoration-wavy underline-offset-4">Angka Kecukupan Gizi</span>
+            </h1>
+            <p class="text-sm sm:text-base text-[#756356] leading-relaxed mb-8">
+                Pilihan 5 menu harian bergizi seimbang lengkap dengan rincian Angka Kecukupan Gizi (Energi, Protein, Lemak, Serat, dan Karbohidrat) untuk Balita, TK, Ibu Hamil, Ibu Menyusui, dan Sekolah Menengah Atas!
+            </p>
+
+            <!-- SEARCH & FILTER BAR -->
+            <div class="bg-[#F8F4EE] backdrop-blur-md p-3 sm:p-4 rounded-3xl border border-[#E8DED6] shadow-md flex flex-col sm:flex-row gap-3 items-center justify-between">
+                <div class="relative w-full sm:w-1/2">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[#968172]">
+                        <i class="fa-solid fa-search"></i>
+                    </span>
+                    <input type="text" id="searchInput" placeholder="Cari menu makanan atau kategori..." class="w-full pl-11 pr-4 py-3 bg-[#FDFBF7] border border-[#E3D5CA] rounded-2xl text-xs sm:text-sm text-[#3D332B] placeholder-[#968172]/60 focus:outline-none focus:border-[#B8A394] focus:ring-2 focus:ring-[#E3D5CA] transition-all">
+                </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0" id="filterButtons">
+                    <button onclick="filterCategory('All')" class="filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#E3D5CA] text-[#3D332B] shadow-sm transition-all whitespace-nowrap">Semua 🌟</button>
+                    <button onclick="filterCategory('Balita')" class="filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#F5EBE6] text-[#756356] hover:bg-[#E8DED6] transition-all whitespace-nowrap">Balita 👶</button>
+                    <button onclick="filterCategory('TK')" class="filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#F5EBE6] text-[#756356] hover:bg-[#E8DED6] transition-all whitespace-nowrap">TK 🎒</button>
+                    <button onclick="filterCategory('Bumil')" class="filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#F5EBE6] text-[#756356] hover:bg-[#E8DED6] transition-all whitespace-nowrap">Bumil 🤰</button>
+                    <button onclick="filterCategory('Busui')" class="filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#F5EBE6] text-[#756356] hover:bg-[#E8DED6] transition-all whitespace-nowrap">Busui 🤱</button>
+                    <button onclick="filterCategory('SMA')" class="filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#F5EBE6] text-[#756356] hover:bg-[#E8DED6] transition-all whitespace-nowrap">SMA 🎓</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow py-12 lg:py-16 bg-[#FDFBF7] relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12" id="categories-container">
+            <!-- Dynamically populated via JavaScript -->
+        </div>
+        <div id="noResult" class="hidden text-center py-16">
+            <div class="text-4xl mb-3">🔍</div>
+            <h3 class="text-lg font-bold text-[#54473D]">Menu tidak ditemukan</h3>
+            <p class="text-xs text-[#756356]">Coba kata kunci lain atau pilih kategori yang berbeda ya!</p>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#F5EBE6]/70 border-t border-[#E8DED6] py-10 mt-auto relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-3">
+                <div class="w-8 h-8 rounded-full bg-[#E3D5CA] flex items-center justify-center text-[#3D332B] text-sm shadow-sm font-bold border border-[#D5BDAF] overflow-hidden p-0.5">
+                    <svg viewBox="0 0 200 200" class="w-full h-full object-contain" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="94" fill="#C5A059" stroke="#E6D597" stroke-width="6"/>
+                        <circle cx="100" cy="100" r="84" fill="#88C4E8" stroke="#102A45" stroke-width="2"/>
+                        <circle cx="100" cy="100" r="70" fill="#0E2338"/>
+                    </svg>
+                </div>
+                <span class="text-sm font-bold text-[#3D332B]">Badan Gizi Nasional - SPPG Lorok Pakjo</span>
+            </div>
+            <p class="text-xs text-[#756356]">
+                &copy; 2026 Badan Gizi Nasional SPPG Lorok Pakjo. Menu Harian dan Angka Kecukupan Gizi - Sehat, Hangat, dan Ceria! ✨
+            </p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const dataCategories = [
+            {
+                id: "Balita",
+                title: "Balita Sehat",
+                icon: "👶",
+                badgeBg: "bg-[#F5EBE6] text-[#54473D] border-[#E8DED6]",
+                cardBorder: "border-[#E8DED6] hover:border-[#D5BDAF]",
+                menus: [
+                    "Bubur Ayam Tim Wortel Halus",
+                    "Sup Tahu Telur Puyuh Kuah Kaldu",
+                    "Puding Susu Buah Naga Merah",
+                    "Bubur Tim Ikan Kembung Tahu",
+                    "Bubur Kacang Hijau Santan Encer"
+                ],
+                akg: {
+                    energi: "1.350 kkal",
+                    protein: "20 gram",
+                    lemak: "45 gram",
+                    serat: "19 gram",
+                    karbohidrat: "215 gram"
+                }
+            },
+            {
+                id: "TK",
+                title: "Anak TK Ceria",
+                icon: "🎒",
+                badgeBg: "bg-[#F8F4EE] text-[#54473D] border-[#E3D5CA]",
+                cardBorder: "border-[#E3D5CA] hover:border-[#B8A394]",
+                menus: [
+                    "Nasi Tim Ikan Kembung Bayam",
+                    "Omelet Telur Sayur Mini",
+                    "Bubur Kacang Hijau Manis",
+                    "Sup Makaroni Daging Sapi Cincang",
+                    "Nasi Sup Ayam Kampung Suwir"
+                ],
+                akg: {
+                    energi: "1.400 kkal",
+                    protein: "25 gram",
+                    lemak: "50 gram",
+                    serat: "20 gram",
+                    karbohidrat: "220 gram"
+                }
+            },
+            {
+                id: "Bumil",
+                title: "Ibu Hamil (Bumil Hebat)",
+                icon: "🤰",
+                badgeBg: "bg-[#E3D5CA]/70 text-[#3D332B] border-[#D5BDAF]",
+                cardBorder: "border-[#D5BDAF] hover:border-[#B8A394]",
+                menus: [
+                    "Nasi Merah, Ayam Kukus Jahe & Brokoli",
+                    "Sup Ikan Patin Asam Pedas Segar",
+                    "Jus Alpukat Madu & Kacang Almond",
+                    "Tumis Bayam Merah & Hati Ayam",
+                    "Nasi Putih dengan Semur Daging & Tahu"
+                ],
+                akg: {
+                    energi: "2.550 kkal",
+                    protein: "85 gram",
+                    lemak: "75 gram",
+                    serat: "40 gram",
+                    karbohidrat: "360 gram"
+                }
+            },
+            {
+                id: "Busui",
+                title: "Ibu Menyusui (Busui Sayang)",
+                icon: "🤱",
+                badgeBg: "bg-[#E8DED6]/80 text-[#3D332B] border-[#D5BDAF]",
+                cardBorder: "border-[#D5BDAF] hover:border-[#B8A394]",
+                menus: [
+                    "Sayur Katuk Daging Sapi & Nasi Putih",
+                    "Pecel Lele Bakar Lengkap Tahu Tempe",
+                    "Susu Almond Oat Kurma Booster ASI",
+                    "Sup Ikan Gabus Kuah Kuning Segar",
+                    "Nasi Tim Ayam Kampung Jamur"
+                ],
+                akg: {
+                    energi: "2.400 kkal",
+                    protein: "80 gram",
+                    lemak: "70 gram",
+                    serat: "38 gram",
+                    karbohidrat: "340 gram"
+                }
+            },
+            {
+                id: "SMA",
+                title: "Sekolah Menengah Atas (SMA Juara)",
+                icon: "🎓",
+                badgeBg: "bg-[#F5EBE6] text-[#54473D] border-[#E8DED6]",
+                cardBorder: "border-[#E8DED6] hover:border-[#D5BDAF]",
+                menus: [
+                    "Nasi Goreng Sehat Ayam Suwir & Telur",
+                    "Chicken Katsu Panggang Salad Kentang",
+                    "Smoothie Bowl Pisang Mangga Granola",
+                    "Mie Goreng Sayur Telur Rebus Sehat",
+                    "Nasi Putih, Ayam Bakar Madu & Lalapan"
+                ],
+                akg: {
+                    energi: "2.450 kkal",
+                    protein: "70 gram",
+                    lemak: "70 gram",
+                    serat: "35 gram",
+                    karbohidrat: "350 gram"
+                }
+            }
+        ];
+
+        let currentFilter = 'All';
+        let searchQuery = '';
+
+        function renderCategories() {
+            const container = document.getElementById('categories-container');
+            const noResultEl = document.getElementById('noResult');
+            
+            const filtered = dataCategories.filter(cat => {
+                const matchesCategory = currentFilter === 'All' || cat.id === currentFilter;
+                const matchesSearch = cat.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      cat.menus.some(m => m.toLowerCase().includes(searchQuery.toLowerCase()));
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = '';
+                noResultEl.classList.remove('hidden');
+                return;
+            }
+
+            noResultEl.classList.add('hidden');
+            container.innerHTML = filtered.map((cat, idx) => `
+                <div class="bg-[#F8F4EE] border ${cat.cardBorder} rounded-3xl p-6 sm:p-8 shadow-md transition-all duration-300 relative overflow-hidden group">
+                    
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-[#E3D5CA]/30 rounded-full blur-2xl group-hover:bg-[#E3D5CA]/50 transition-all pointer-events-none"></div>
+
+                    <!-- Category Header -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-6 border-b border-[#E8DED6] gap-3 relative z-10">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-14 h-14 rounded-2xl bg-[#FDFBF7] border border-[#E3D5CA] flex items-center justify-center text-2xl shadow-sm group-hover:scale-105 transition-transform">
+                                ${cat.icon}
+                            </div>
+                            <div>
+                                <h2 class="text-xl sm:text-2xl font-extrabold text-[#3D332B] tracking-tight flex items-center gap-2">
+                                    ${cat.title} <span class="text-sm">🧸</span>
+                                </h2>
+                                <span class="text-xs sm:text-sm text-[#756356] font-medium">Menu Harian dan Angka Kecukupan Gizi • SPPG Lorok Pakjo</span>
+                            </div>
+                        </div>
+                        <div class="self-start sm:self-auto">
+                            <span class="inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-full text-xs font-bold border ${cat.badgeBg} shadow-sm">
+                                <span>⭐</span>
+                                <span>Kategori ${cat.id}</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 5 Menu Unified Table & AKG Section -->
+                    <div class="space-y-6 relative z-10">
+                        
+                        <!-- 5 Menu Combined Table (No Age Shown) -->
+                        <div class="bg-[#FDFBF7] border border-[#E3D5CA] rounded-2xl overflow-hidden shadow-sm">
+                            <div class="bg-[#F5EBE6] px-5 py-3 border-b border-[#E8DED6] flex items-center justify-between">
+                                <h3 class="text-xs font-extrabold uppercase tracking-wider text-[#756356] flex items-center">
+                                    <i class="fa-solid fa-utensils mr-2 text-[#968172]"></i> Tabel 5 Pilihan Menu Harian 🍽️
+                                </h3>
+                                <span class="text-[11px] text-[#756356] font-medium">Menu Harian Bergizi SPPG Lorok Pakjo</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-[#E8DED6] text-[11px] uppercase tracking-wider text-[#756356] bg-[#F8F4EE]/60">
+                                            <th class="py-3 px-4 font-bold w-16 text-center">No</th>
+                                            <th class="py-3 px-4 font-bold">Nama Menu Makanan Sehat</th>
+                                            <th class="py-3 px-4 font-bold w-36 text-right">Status Gizi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-[#E8DED6]/60 text-xs sm:text-sm text-[#3D332B]">
+                                        ${cat.menus.map((menu, index) => `
+                                            <tr class="hover:bg-[#F5EBE6]/40 transition-colors">
+                                                <td class="py-3.5 px-4 text-center font-bold text-[#756356]">
+                                                    <span class="w-6 h-6 rounded-lg bg-[#E3D5CA]/50 inline-flex items-center justify-center text-xs border border-[#D5BDAF]">${index + 1}</span>
+                                                </td>
+                                                <td class="py-3.5 px-4 font-semibold">${menu}</td>
+                                                <td class="py-3.5 px-4 text-right">
+                                                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-[11px] font-bold bg-[#F5EBE6] text-[#756356] border border-[#E8DED6]">
+                                                        Seimbang ✨
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- AKG Standard Below Table -->
+                        <div class="bg-[#FDFBF7] border border-[#E3D5CA] rounded-2xl p-5 sm:p-6 shadow-sm">
+                            <h3 class="text-xs font-extrabold uppercase tracking-wider text-[#756356] mb-4 flex items-center">
+                                <i class="fa-solid fa-chart-pie mr-2 text-[#968172]"></i> Angka Kecukupan Gizi (AKG) 📊
+                            </h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                                <div class="bg-[#F5EBE6]/50 border border-[#E8DED6] p-3 rounded-xl flex flex-col justify-between hover:border-[#D5BDAF] transition-colors">
+                                    <span class="text-[#756356] text-[11px] font-medium flex items-center mb-1"><i class="fa-solid fa-bolt text-[#968172] mr-1.5"></i> Energi</span>
+                                    <span class="font-extrabold text-[#3D332B] text-xs sm:text-sm">${cat.akg.energi}</span>
+                                </div>
+                                <div class="bg-[#F5EBE6]/50 border border-[#E8DED6] p-3 rounded-xl flex flex-col justify-between hover:border-[#D5BDAF] transition-colors">
+                                    <span class="text-[#756356] text-[11px] font-medium flex items-center mb-1"><i class="fa-solid fa-dumbbell text-[#968172] mr-1.5"></i> Protein</span>
+                                    <span class="font-extrabold text-[#3D332B] text-xs sm:text-sm">${cat.akg.protein}</span>
+                                </div>
+                                <div class="bg-[#F5EBE6]/50 border border-[#E8DED6] p-3 rounded-xl flex flex-col justify-between hover:border-[#D5BDAF] transition-colors">
+                                    <span class="text-[#756356] text-[11px] font-medium flex items-center mb-1"><i class="fa-solid fa-droplet text-[#968172] mr-1.5"></i> Lemak</span>
+                                    <span class="font-extrabold text-[#3D332B] text-xs sm:text-sm">${cat.akg.lemak}</span>
+                                </div>
+                                <div class="bg-[#F5EBE6]/50 border border-[#E8DED6] p-3 rounded-xl flex flex-col justify-between hover:border-[#D5BDAF] transition-colors">
+                                    <span class="text-[#756356] text-[11px] font-medium flex items-center mb-1"><i class="fa-solid fa-seedling text-[#968172] mr-1.5"></i> Serat</span>
+                                    <span class="font-extrabold text-[#3D332B] text-xs sm:text-sm">${cat.akg.serat}</span>
+                                </div>
+                                <div class="col-span-2 sm:col-span-1 bg-[#F5EBE6]/50 border border-[#E8DED6] p-3 rounded-xl flex flex-col justify-between hover:border-[#D5BDAF] transition-colors">
+                                    <span class="text-[#756356] text-[11px] font-medium flex items-center mb-1"><i class="fa-solid fa-wheat-awn text-[#968172] mr-1.5"></i> Karbo</span>
+                                    <span class="font-extrabold text-[#3D332B] text-xs sm:text-sm">${cat.akg.karbohidrat}</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-[#E8DED6] text-[11px] text-[#756356] text-center font-medium">
+                                ✨ Standar rujukan harian resmi Badan Gizi Nasional SPPG Lorok Pakjo.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterCategory(catId) {
+            currentFilter = catId;
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent.includes(catId) || (catId === 'All' && btn.textContent.includes('Semua'))) {
+                    btn.className = "filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#E3D5CA] text-[#3D332B] shadow-sm transition-all whitespace-nowrap";
+                } else {
+                    btn.className = "filter-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-[#F5EBE6] text-[#756356] hover:bg-[#E8DED6] transition-all whitespace-nowrap";
+                }
+            });
+            renderCategories();
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            renderCategories();
+        });
+
+        window.onload = function() {
+            renderCategories();
+        };
+    </script>
+</body>
+</html>
